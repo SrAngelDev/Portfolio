@@ -1,0 +1,138 @@
+---
+const navItems = [
+  { name: "Inicio", url: "/#inicio" },
+  { name: "Proyectos", url: "/#proyectos" },
+  { name: "Stack", url: "/#stack" },
+  { name: "Sobre mí", url: "/sobre-mi" },
+];
+---
+
+<nav
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  id="navbar"
+>
+  <div class="container">
+    <div class="flex items-center justify-between h-20" id="nav-inner">
+      <!-- Logo -->
+      <a href="/" class="group flex items-center gap-2.5">
+        <div
+          class="w-9 h-9 rounded-lg bg-[#1A3D63] flex items-center justify-center text-white font-bold font-display text-sm shadow-md shadow-[#1A3D63]/15 group-hover:shadow-[#1A3D63]/30 transition-shadow duration-300"
+        >
+          A
+        </div>
+        <span class="text-lg font-bold font-display tracking-tight text-[#0A1931] hidden sm:block">
+          Ángel<span class="text-[#4A7FA7]">.</span>dev
+        </span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-1">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.url}
+              class="relative px-3.5 py-2 text-sm font-medium text-[#4A6A87] hover:text-[#0A1931] transition-colors duration-300 rounded-md group"
+            >
+              {item.name}
+              <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-[#4A7FA7] transition-all duration-300 group-hover:w-5"></span>
+            </a>
+          ))
+        }
+        <div class="w-px h-5 bg-[rgba(26,61,99,0.12)] mx-2"></div>
+        <a
+          href="/cv.pdf"
+          download
+          class="flex items-center gap-2 px-3.5 py-2 text-sm font-medium text-[#4A6A87] hover:text-[#0A1931] rounded-md hover:bg-[#EEF4FA] transition-all duration-300"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          CV
+        </a>
+        <a href="mailto:srangeldev@gmail.com" class="btn btn-primary ml-2 py-2 px-4">
+          Contacto
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[rgba(26,61,99,0.12)] text-[#1A3D63] hover:bg-[#EEF4FA] transition-all"
+        id="menu-btn"
+        aria-label="Menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div
+    class="fixed inset-0 bg-[#F6FAFD]/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:hidden flex flex-col"
+    id="mobile-menu"
+  >
+    <div class="flex items-center justify-between px-6 h-20 border-b border-[rgba(26,61,99,0.08)]">
+      <span class="text-lg font-bold font-display text-[#0A1931]">Menú</span>
+      <button
+        class="w-10 h-10 flex items-center justify-center rounded-md bg-white border border-[rgba(26,61,99,0.12)] text-[#4A6A87] hover:text-[#0A1931] hover:bg-[#EEF4FA] transition-all"
+        id="close-menu-btn"
+        aria-label="Cerrar menú"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-col gap-1 px-6 pt-8">
+      {
+        navItems.map((item, i) => (
+          <a
+            href={item.url}
+            class="flex items-center gap-4 px-4 py-4 text-xl font-display font-semibold text-[#0A1931] hover:bg-[#EEF4FA] rounded-xl transition-all mobile-link"
+            style={`transition-delay: ${i * 50}ms`}
+          >
+            <span class="text-sm font-mono text-[#4A7FA7]">0{i + 1}</span>
+            {item.name}
+          </a>
+        ))
+      }
+      <div class="border-t border-[rgba(26,61,99,0.08)] mt-6 pt-6 flex flex-col gap-3">
+        <a href="/cv.pdf" download class="btn btn-secondary justify-center mobile-link">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          Descargar CV
+        </a>
+        <a href="mailto:srangeldev@gmail.com" class="btn btn-primary justify-center mobile-link">
+          Contacto
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById("navbar");
+  const menuBtn = document.getElementById("menu-btn");
+  const closeMenuBtn = document.getElementById("close-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
+
+  // Scroll effect
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 32) {
+      navbar?.classList.add("glass");
+    } else {
+      navbar?.classList.remove("glass");
+    }
+  });
+
+  const toggleMenu = () => {
+    mobileMenu?.classList.toggle("translate-x-full");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
+  menuBtn?.addEventListener("click", toggleMenu);
+  closeMenuBtn?.addEventListener("click", toggleMenu);
+  mobileLinks.forEach((link) => link.addEventListener("click", toggleMenu));
+</script>

@@ -1,0 +1,193 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const stack = ["Angular", "TypeScript", "C# / .NET", "SQL Server", "Azure", "Docker"];
+
+const features = [
+  {
+    title: "Gestión de procesos",
+    description:
+      "Flujos configurables para que cada departamento adapte la herramienta a su forma de trabajar sin depender del equipo de desarrollo.",
+  },
+  {
+    title: "Trazabilidad end-to-end",
+    description:
+      "Cada acción queda registrada. Auditorías, métricas y reportes con datos reales y filtrables al instante.",
+  },
+  {
+    title: "Roles y permisos finos",
+    description:
+      "Sistema granular por módulo y por acción. Lo justo para cada usuario, sin fricción innecesaria.",
+  },
+  {
+    title: "Despliegue continuo",
+    description:
+      "Pipelines automatizados con tests, build y publicación. Iteraciones rápidas y seguras.",
+  },
+];
+
+const milestones = [
+  { label: "Módulos en producción", value: "12+" },
+  { label: "Usuarios activos", value: "200+" },
+  { label: "Tiempo de respuesta", value: "<200ms" },
+];
+---
+
+<Layout
+  title="OriginPath — Aplicaciones empresariales"
+  description="Caso de estudio: OriginPath, plataforma empresarial de gestión y trazabilidad construida con Angular y C#/.NET."
+>
+  <!-- HERO -->
+  <section class="relative pt-36 md:pt-44 pb-20">
+    <div class="container">
+      <a href="/#proyectos" class="inline-flex items-center gap-2 text-sm text-[#4A6A87] hover:text-[#0A1931] transition-colors mb-10 reveal">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver a proyectos
+      </a>
+
+      <div class="max-w-4xl reveal">
+        <div class="flex flex-wrap items-center gap-3 mb-8">
+          <span class="section-label"><span>Caso de estudio · 01</span></span>
+          <span class="text-xs font-mono text-[#7895AE] tracking-[0.14em] uppercase">/ 2024</span>
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#2F7D4F] tracking-[0.12em] uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#2F7D4F]"></span> En producción
+          </span>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold font-display tracking-[-0.025em] leading-[0.95] text-[#0A1931]">
+          OriginPath
+        </h1>
+        <p class="text-xl md:text-2xl font-display text-[#1A3D63] mt-3">
+          Plataforma empresarial de gestión y trazabilidad.
+        </p>
+        <p class="text-lg text-[#4A6A87] mt-6 max-w-2xl leading-relaxed">
+          Una aplicación a medida para optimizar procesos internos y centralizar
+          la información de varios departamentos. Construida con un enfoque
+          modular, escalable y pensado para durar años.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-8">
+          {stack.map((t) => (
+            <span class="px-3 py-1.5 text-xs font-mono rounded-full bg-[#EEF4FA] text-[#1A3D63] border border-[rgba(26,61,99,0.08)]">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICAS -->
+  <section class="relative py-12 md:py-16 bg-[#EEF4FA]/60 border-y border-[rgba(26,61,99,0.06)]">
+    <div class="container">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {milestones.map((m) => (
+          <div class="text-center reveal">
+            <div class="text-4xl md:text-5xl font-bold font-display text-[#1A3D63]">{m.value}</div>
+            <div class="text-xs font-mono text-[#7895AE] uppercase tracking-[0.12em] mt-2">{m.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXTO -->
+  <section class="relative py-24 md:py-32">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        <div class="lg:col-span-4 reveal">
+          <div class="section-label mb-5"><span>El reto</span></div>
+          <h2 class="text-3xl md:text-4xl font-bold font-display tracking-[-0.025em] leading-[1.1] text-[#0A1931]">
+            Empresa creciendo,<br />procesos por todas partes.
+          </h2>
+        </div>
+        <div class="lg:col-span-8 space-y-5 reveal">
+          <p class="text-lg text-[#4A6A87] leading-relaxed">
+            La empresa tenía la información dispersa entre hojas de cálculo,
+            correos y herramientas distintas. Cada departamento tenía su modo
+            de trabajar y la trazabilidad entre ellos era prácticamente manual.
+          </p>
+          <p class="text-[#4A6A87] leading-relaxed">
+            Necesitaban una plataforma única, fácil de adoptar y que pudiera
+            crecer con el negocio. Sin sobreingeniería, pero preparada para
+            soportar nuevos módulos y volumen creciente de datos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LO QUE CONSTRUÍ -->
+  <section class="relative py-24 md:py-32 bg-[#EEF4FA]/60 border-y border-[rgba(26,61,99,0.06)]">
+    <div class="container">
+      <div class="max-w-3xl mb-14 reveal">
+        <div class="section-label mb-5"><span>Lo que construí</span></div>
+        <h2 class="text-4xl md:text-5xl font-bold font-display tracking-[-0.025em] leading-[1.05] text-[#0A1931]">
+          Una plataforma modular,<br />pensada para escalar.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        {features.map((f, i) => (
+          <div class="card p-7 md:p-8 reveal">
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="text-3xl font-bold font-display text-[#1A3D63] opacity-30">
+                0{i + 1}
+              </span>
+              <h3 class="text-xl font-semibold font-display text-[#0A1931]">{f.title}</h3>
+            </div>
+            <p class="text-[#4A6A87] leading-relaxed">{f.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- APRENDIZAJES -->
+  <section class="relative py-24 md:py-32">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        <div class="lg:col-span-5 reveal">
+          <div class="section-label mb-5"><span>Aprendizajes</span></div>
+          <h2 class="text-3xl md:text-4xl font-bold font-display tracking-[-0.025em] leading-[1.1] text-[#0A1931]">
+            Lo que me llevo<br />de este proyecto.
+          </h2>
+        </div>
+        <div class="lg:col-span-7 space-y-5 reveal">
+          <p class="text-[#4A6A87] leading-relaxed">
+            Trabajar con un cliente real obliga a tomar decisiones de
+            arquitectura con sentido común. No siempre la solución más
+            elegante es la correcta: lo importante es que el equipo pueda
+            mantenerla cuando yo no esté.
+          </p>
+          <p class="text-[#4A6A87] leading-relaxed">
+            La capa de permisos fue uno de los puntos más interesantes:
+            granular sin volverse impredecible. Y los pipelines de despliegue
+            me han devuelto horas cada semana.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative pb-24 md:pb-32">
+    <div class="container">
+      <div class="card p-10 md:p-14 text-center max-w-4xl mx-auto reveal">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold font-display tracking-[-0.025em] text-[#0A1931]">
+          ¿Necesitas algo parecido?
+        </h2>
+        <p class="text-[#4A6A87] mt-5 max-w-xl mx-auto">
+          Si tu equipo tiene los procesos repartidos y crees que una plataforma
+          a medida puede ayudar, hablemos.
+        </p>
+        <div class="flex flex-wrap gap-3 mt-8 justify-center">
+          <a href="mailto:srangeldev@gmail.com" class="btn btn-primary">Escríbeme</a>
+          <a href="/#proyectos" class="btn btn-secondary">Otros proyectos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

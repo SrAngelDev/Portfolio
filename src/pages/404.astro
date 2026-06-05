@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="404 — Página no encontrada"
+  description="La página que buscas no existe o fue movida."
+>
+  <section class="relative min-h-[80vh] flex items-center pt-32 pb-24">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <div class="section-label mb-8 justify-center"><span>Error 404</span></div>
+
+        <h1 class="text-7xl sm:text-8xl lg:text-9xl font-bold font-display tracking-[-0.03em] leading-[0.9] text-[#0A1931]">
+          <span class="text-gradient">404</span>
+        </h1>
+
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold font-display tracking-[-0.025em] text-[#0A1931] mt-6">
+          Página no encontrada.
+        </h2>
+
+        <p class="text-lg text-[#4A6A87] mt-6 max-w-xl mx-auto leading-relaxed">
+          La ruta que buscas no existe, fue movida o nunca llegó a existir.
+          Pero no pasa nada: aquí hay caminos que sí llevan a sitio.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mt-10 justify-center">
+          <a href="/" class="btn btn-primary">
+            Volver al inicio
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a href="/#proyectos" class="btn btn-secondary">Ver proyectos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
