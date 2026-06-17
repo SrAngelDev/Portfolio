@@ -1,0 +1,45 @@
+---
+interface Experience {
+  year: string;
+  role: string;
+  company: string;
+  desc: string;
+  tags?: string[];
+}
+
+interface Props {
+  items: Experience[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="relative">
+  <div class="absolute left-[19px] top-2 bottom-2 w-px bg-[#CBD5E1]"></div>
+  <div class="space-y-10">
+    {items.map((item, i) => (
+      <div class="fade-in relative pl-12" style={`transition-delay: ${i * 80}ms`}>
+        <div class="absolute left-[11px] top-1.5 w-[17px] h-[17px] rounded-full bg-white border-2 border-[#4F46E5] dot-pulse"></div>
+        <div class="card p-5 sm:p-6 hover:border-[#4F46E5]/30">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-2">
+            <h3 class="font-display font-semibold text-base sm:text-lg text-[#0F172A]">
+              {item.role}
+            </h3>
+            <span class="text-xs font-mono text-[#4F46E5] font-medium whitespace-nowrap shrink-0">
+              {item.year}
+            </span>
+          </div>
+          <p class="text-sm font-medium text-[#64748B] mb-2">{item.company}</p>
+          <p class="text-sm text-[#475569] leading-relaxed">{item.desc}</p>
+          {item.tags && item.tags.length > 0 && (
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              {item.tags.map((tag) => (
+                <span class="tag text-[10px]">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

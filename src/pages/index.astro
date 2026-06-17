@@ -1,432 +1,211 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import Timeline from "../components/Timeline.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import TechStack from "../components/TechStack.astro";
-import TerminalConsole from "../components/TerminalConsole.astro";
+import SkillGrid from "../components/SkillGrid.astro";
+import ContactSection from "../components/ContactSection.astro";
+
+const experience = [
+  {
+    year: "2026",
+    role: "Modelado de Datos",
+    company: "BBVA — Sector Financiero",
+    desc: "Diseño y modelado de bases de datos para gestión de información financiera. Creación de modelos eficientes y escalables, optimización de consultas SQL, y colaboración con equipos de desarrollo para asegurar la calidad e integridad de los datos.",
+    tags: ["SQL Server", "MySQL", "Optimización", "Documentación"],
+  },
+  {
+    year: "2026",
+    role: "Proyecto Fin de Grado — NexoPostal",
+    company: "Plataforma logística end-to-end",
+    desc: "Arquitectura de microservicios con 3 SPAs Angular + 5 servicios .NET, bases de datos independientes y pipeline CI/CD completa. Stripe Checkout, SignalR, GPS tracking y despliegue automatizado con Docker y GitHub Actions.",
+    tags: ["Angular", ".NET", "PostgreSQL", "Docker", "CI/CD"],
+  },
+  {
+    year: "2025",
+    role: "Desarrollador Full Stack",
+    company: "OriginPath — FCT (DAW)",
+    desc: "Creación de componentes reutilizables en Angular, desarrollo backend en C# (.NET) con Entity Framework Core y SQL Server. Aplicación de principios SOLID, patrones DTO e inyección de dependencias en entorno profesional.",
+    tags: ["Angular", "C#", ".NET", "SQL Server"],
+  },
+  {
+    year: "2018-2023",
+    role: "Full Stack Developer — FiveM",
+    company: "Sistemas de gestión para servidores roleplay",
+    desc: "Desarrollo completo de módulos para servidores con 500+ usuarios diarios. Sistemas de economía, inventarios, jobs y panel de administración. Optimización al 100% con Lua, Node.js, MySQL y Redis.",
+    tags: ["Lua", "Node.js", "MySQL", "Redis"],
+  },
+];
 
 const projects = [
   {
-    number: "01",
-    title: "OriginPath",
-    description:
-      "Plataforma empresarial para la gestión de procesos internos y trazabilidad. Construida con un enfoque modular y escalable, lista para crecer con el negocio.",
-    url: "/proyectos/aplicaciones-empresariales-originpath",
-    tags: ["Angular", "C#", ".NET", "SQL Server"],
-    year: "2024",
+    title: "Trabajo Final de Grado — NexoPostal",
+    desc: "Plataforma logística end-to-end con microservicios, 3 SPAs Angular y CI/CD completo. En producción en nexopostal.es.",
+    tags: ["Angular", ".NET", "PostgreSQL", "Docker"],
+    url: "https://github.com/SrAngelDev/NexoPostal",
+    year: "2026",
   },
   {
-    number: "02",
-    title: "Sistema de gestión FiveM",
-    description:
-      "Backend completo para servidores de roleplay en FiveM: economía, inventarios, jobs y panel admin. Optimizado para alta concurrencia y baja latencia.",
-    url: "/proyectos/sistema-gestion-fivem",
+    title: "OriginPath",
+    desc: "Plataforma empresarial de gestión y trazabilidad con Angular y C#/.NET para procesos internos empresariales.",
+    tags: ["Angular", "C#", ".NET", "SQL Server"],
+    url: "/proyectos/aplicaciones-empresariales-originpath",
+    year: "2025",
+  },
+  {
+    title: "FiveM · Gestión",
+    desc: "Backend para servidores roleplay con economía, inventarios y panel admin. 150+ jugadores concurrentes.",
     tags: ["Lua", "Node.js", "MySQL", "Redis"],
+    url: "/proyectos/sistema-gestion-fivem",
     year: "2023",
   },
 ];
 
-const stackGroups = [
+const skillGroups = [
   {
     title: "Backend",
-    items: [
-      {
-        name: "C# / .NET",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5 0a11.5 11.5 0 100 23 11.5 11.5 0 000-23zm0 2.1a9.4 9.4 0 110 18.8 9.4 9.4 0 010-18.8zM7.6 7v9h1.5v-3.4h1.7v3.4h1.5V7h-1.5v3.2H9.1V7H7.6zm6 0v9h4.4v-1.3h-2.9v-2.5h2.6v-1.3h-2.6V8.3h2.8V7h-4.3z"/></svg>',
-      },
-      {
-        name: "Java / Spring",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M8.85 18.56s-.92.54.65.71c1.91.22 2.89.19 5-.21 0 0 .55.35 1.32.65-4.72 2.02-10.7-.12-6.97-1.15M8.27 15.91s-1.03.76.55.92c2.04.21 3.65.23 6.44-.31 0 0 .38.39.99.6-5.71 1.67-12.07.13-7.98-1.21M13.13 11.21c1.16 1.34-.31 2.55-.31 2.55s2.95-1.52 1.59-3.42c-1.27-1.78-2.24-2.66 3.03-5.72 0 0-8.24 2.06-4.31 6.59M19.55 20.5s.68.56-.75.99c-2.72.83-11.34 1.08-13.72.03-.86-.37.76-.89 1.26-.99.53-.11.83-.09.83-.09-.95-.67-6.16 1.32-2.64 1.89 9.59 1.56 17.5-.7 14.02-1.82M9.3 13.16s-4.36 1.04-1.54 1.42c1.19.16 3.56.12 5.77-.06 1.81-.15 3.62-.48 3.62-.48s-.64.27-1.1.59c-4.43 1.16-12.97.62-10.52-.57 2.07-1.01 3.77-.9 3.77-.9M17.13 17.39c4.5-2.34 2.42-4.59.97-4.28-.36.07-.51.14-.51.14s.13-.21.38-.31c2.78-.97 4.91 2.88-.93 4.55 0 0 .07-.07.09-.1M14.39 0s2.49 2.5-2.36 6.33c-3.89 3.07-.89 4.83 0 6.83-2.26-2.04-3.92-3.83-2.81-5.5C10.85 5.22 15.4 4 14.39 0M9.74 23.93c4.31.28 10.94-.15 11.09-2.19 0 0-.3.77-3.57 1.38-3.69.68-8.24.6-10.95.17 0 0 .56.45 3.43.64"/></svg>',
-      },
-      {
-        name: "Node.js",
-        level: "Sólido",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L3.075 6.68c-.084.05-.139.144-.139.241v10.151c0 .097.055.189.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L2.28 18.675a1.856 1.856 0 0 1-.922-1.6V6.921c0-.659.353-1.272.922-1.598L11.075.246a1.911 1.911 0 0 1 1.847 0L21.72 5.322c.57.326.924.939.924 1.598v10.154c0 .658-.354 1.27-.924 1.6l-8.794 5.078a1.84 1.84 0 0 1-.928.248zm2.717-6.993c-3.848 0-4.653-1.765-4.653-3.243 0-.142.114-.255.256-.255h1.139c.127 0 .234.092.252.219.171 1.155.683 1.737 3.006 1.737 1.848 0 2.638-.418 2.638-1.398 0-.566-.223-.985-3.103-1.266-2.408-.241-3.898-.771-3.898-2.7 0-1.776 1.502-2.835 4.011-2.835 2.824 0 4.221.978 4.397 3.082a.286.286 0 0 1-.067.198c-.048.05-.115.082-.183.082h-1.143c-.12 0-.225-.085-.249-.201-.275-1.216-.94-1.604-2.755-1.604-2.029 0-2.262.706-2.262 1.236 0 .643.279.83 3.012 1.192 2.706.358 3.985.865 3.985 2.769 0 1.913-1.598 3.012-4.382 3.012z"/></svg>',
-      },
-      {
-        name: "SQL / NoSQL",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>',
-      },
+    skills: [
+      { name: "C# / .NET", icon: "csharp" },
+      { name: "Java / Spring", icon: "spring" },
+      { name: "Node.js", icon: "nodejs" },
+      { name: "Kotlin", icon: "kotlin" },
     ],
   },
   {
     title: "Frontend",
-    items: [
-      {
-        name: "Angular",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M9.93 12.645h4.134L11.996 7.74m0-7.245L.531 4.45l1.834 15.094 9.63 5.34 9.628-5.328L23.462 4.46m-11.466-1.45 7.061 15.78H16.43l-1.42-3.501H8.93l-1.404 3.501H4.989Z"/></svg>',
-      },
-      {
-        name: "TypeScript",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0Zm17.363 9.75q.69 0 1.231.146.55.155.927.435.38.273.617.643.234.367.317.846l-1.97.503q-.116-.276-.353-.448a.99.99 0 0 0-.583-.18 1.13 1.13 0 0 0-.503.111c-.13.07-.23.165-.302.282a.91.91 0 0 0-.108.444 .53.53 0 0 0 .085.293.69.69 0 0 0 .264.221c.114.064.255.119.422.166s.366.097.595.149c.4.094.776.205 1.128.336.353.13.661.302.926.518.265.215.474.483.626.804.151.32.227.71.227 1.171 0 .402-.077.764-.23 1.084q-.231.485-.621.832-.39.347-.96.547-.572.2-1.296.2-.752 0-1.408-.221-.66-.21-1.106-.55-.45-.348-.74-.832-.286-.474-.385-1.054l2.071-.397c.044.146.108.276.193.396q.13.18.31.31.18.13.426.198.244.069.532.069.351 0 .584-.087.231-.087.378-.245a.7.7 0 0 0 .195-.499c0-.116-.025-.218-.075-.306a.86.86 0 0 0-.235-.241 2 2 0 0 0-.421-.21 4 4 0 0 0-.617-.183l-.764-.183a4 4 0 0 1-.961-.32 2.5 2.5 0 0 1-.715-.495 1.96 1.96 0 0 1-.443-.689 2.6 2.6 0 0 1-.147-.91q0-.62.245-1.115.243-.495.685-.84.444-.346 1.054-.524.61-.18 1.349-.18Zm-9.057.196v1.901H6.95v8.272H4.79v-8.272H2.286V9.946Z"/></svg>',
-      },
-      {
-        name: "Astro",
-        level: "Sólido",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M16.074 16.86c-.72.616-2.157 1.035-3.811 1.035-2.032 0-3.733-.632-4.184-1.483-.161.486-.197 1.04-.197 1.395 0 0-.106 1.748 1.107 2.96a3.275 3.275 0 0 1 .985-2.346c2.18 2.81 5.508 1.913 6.108-.142.156-.487.155-.967.155-1.298-.04-.144-.087-.286-.163-.121zm-3.834.42c2.069 0 3.226-.474 3.226-1.072 0-.598-1.157-1.072-3.226-1.072-2.07 0-3.227.474-3.227 1.072 0 .598 1.157 1.072 3.227 1.072z"/><path d="M8.273 19.013S9.51 21 12.337 21c1.737 0 2.83-.654 3.467-1.224.65-.572 1.07-1.4 1.236-2.276l.083-.42c.165.486.197 1.04.197 1.395 0 0 .032.973-.6 1.928a4.51 4.51 0 0 1-.78.89 4.66 4.66 0 0 1-3.123 1.18c-2.79 0-4.115-1.722-4.252-2.46-.064-.198-.13-.696-.292-1zm.34-3.673S7.65 10.81 7.65 8.847c0-3.16 2.345-5.847 5.213-5.847 1.834 0 3.487 1.196 4.388 2.962.92 1.797.93 4.234.93 5.13 0 1.794-.31 2.247-.31 2.247-1.044 1.122-2.835 1.36-3.832 1.36-3.45 0-5.426-1.36-5.426-1.36z"/></svg>',
-      },
-      {
-        name: "Tailwind",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg>',
-      },
+    skills: [
+      { name: "Angular", icon: "angular" },
+      { name: "TypeScript", icon: "typescript" },
+      { name: "Astro", icon: "astro" },
+      { name: "Tailwind CSS", icon: "tailwind" },
+      { name: "Bootstrap", icon: "bootstrap" },
     ],
   },
   {
-    title: "Tooling & Infra",
-    items: [
-      {
-        name: "Docker",
-        level: "Sólido",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288z"/></svg>',
-      },
-      {
-        name: "Git",
-        level: "Avanzado",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>',
-      },
-      {
-        name: "GitHub Actions",
-        level: "Sólido",
-        icon: '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M10.984 13.836a.5.5 0 0 1-.353-.146l-.745-.743a.5.5 0 1 1 .706-.708l.392.391 1.181-1.18a.5.5 0 0 1 .708.707l-1.535 1.533a.5.5 0 0 1-.354.146zm9.353-.147l1.534-1.532a.5.5 0 0 0-.707-.707l-1.181 1.18-.391-.391a.5.5 0 1 0-.708.707l.746.743a.497.497 0 0 0 .707 0zM4.527 7.452l2.557-1.585A1 1 0 0 0 7.09 4.16L4.533 2.56A1 1 0 0 0 3 3.406v3.196a1.001 1.001 0 0 0 1.527.85zm2.03-2.436L4 6.602V3.406zM24 12.5c0 1.93-1.57 3.5-3.5 3.5a3.503 3.503 0 0 1-3.46-3h-2.55c-1.34 0-2.61-.45-3.59-1.23v4.288c1.140.232 2 1.244 2 2.442a2.5 2.5 0 1 1-3-2.45v-7.737a2.5 2.5 0 1 1 1.041-.073A4.466 4.466 0 0 0 14.49 12h2.55c.232-1.696 1.689-3 3.46-3 1.93 0 3.5 1.57 3.5 3.5zM10 5.5a1.5 1.5 0 1 0-1.5 1.5h.038A1.499 1.499 0 0 0 10 5.5zM11 19.5a1.5 1.5 0 1 0-3.001-.001A1.5 1.5 0 0 0 11 19.5zm12-7a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0z"/></svg>',
-      },
-      {
-        name: "Linux / CLI",
-        level: "Sólido",
-        icon: '<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
-      },
+    title: "Bases de Datos",
+    skills: [
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "SQL Server", icon: "sqlserver" },
+      { name: "MongoDB", icon: "mongodb" },
+      { name: "Redis", icon: "redis" },
+    ],
+  },
+  {
+    title: "DevOps & Tools",
+    skills: [
+      { name: "Docker", icon: "docker" },
+      { name: "GitHub Actions", icon: "githubactions" },
+      { name: "Git", icon: "git" },
+      { name: "Linux", icon: "linux" },
     ],
   },
 ];
 ---
 
-<Layout
-  title="Ángel Sánchez — Desarrollador Full Stack"
-  description="Portfolio de Ángel Sánchez. Desarrollador Full Stack en C#/.NET, Angular y Java. Diseño y código limpios, productos que escalan."
->
-  <!-- =========================================================
-       HERO
-  ========================================================== -->
-  <section
-    id="inicio"
-    class="relative pt-36 md:pt-44 pb-24 md:pb-32 overflow-hidden"
-  >
-    <div class="hero-ambient" aria-hidden="true"></div>
-    <div class="container relative">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        <!-- Left column (text) -->
-        <div class="lg:col-span-7">
-          <div class="section-label mb-8" data-reveal="fade">
-            <span>Portfolio · v2025</span>
-          </div>
+<Layout>
+  <HeroSection photo="/foto.png" />
 
-          <h1 data-reveal="mask" class="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold font-display tracking-[-0.025em] leading-[0.95] text-[#0A1931]">
-            Construyo<br />
-            <span class="text-gradient">software</span> que<br />
-            funciona.
-          </h1>
-
-          <p data-hero="sub" data-reveal="lines" data-reveal-delay="0.3" class="text-lg md:text-xl text-[#4A6A87] mt-8 max-w-xl leading-relaxed">
-            Soy <strong class="text-[#0A1931] font-semibold">Ángel Sánchez</strong>, desarrollador Full Stack.
-            Especializado en <span class="text-[#1A3D63] font-medium">C#/.NET</span>,
-            <span class="text-[#1A3D63] font-medium">Angular</span> y
-            <span class="text-[#1A3D63] font-medium">Java/Spring</span>. Diseño limpio, código mantenible, productos que escalan.
+  <!-- Experience -->
+  <section id="experiencia" class="py-20 md:py-28 bg-[#F8FAFC] border-y border-[#E2E8F0]">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-16">
+        <div class="md:col-span-2 fade-in">
+          <span class="section-label">Experiencia</span>
+          <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#0F172A]">
+            Trayectoria
+          </h2>
+          <p class="text-sm text-[#64748B] mt-3 leading-relaxed">
+            De la formación a la producción. Cada proyecto me ha enseñado algo
+            que llevo al siguiente.
           </p>
-
-          <div class="flex flex-wrap gap-3 mt-10" data-reveal="up" data-reveal-delay="0.5">
-            <a href="#proyectos" class="btn btn-primary" data-cursor="hover">
-              Ver proyectos
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a href="mailto:srangeldev@gmail.com" class="btn btn-secondary" data-cursor="hover">
-              Hablemos
-            </a>
-            <a href="/cv.pdf" download class="btn btn-ghost" data-cursor="hover">
-              Descargar CV
-            </a>
-          </div>
-
-          <!-- Status row -->
-          <div class="mt-12 flex items-center gap-6 flex-wrap" data-reveal="fade" data-reveal-delay="0.7">
-            <div class="flex items-center gap-2.5">
-              <span class="relative flex w-2.5 h-2.5">
-                <span class="absolute inline-flex h-full w-full rounded-full bg-[#2F7D4F] opacity-60 animate-ping"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#2F7D4F]"></span>
-              </span>
-              <span class="text-sm text-[#4A6A87]">Disponible para nuevos proyectos</span>
-            </div>
-            <div class="h-4 w-px bg-[rgba(26,61,99,0.18)]"></div>
-            <span class="text-sm text-[#4A6A87]">
-              <span class="text-[#0A1931] font-semibold">3+</span> años de experiencia
-            </span>
-          </div>
         </div>
-
-        <!-- Right column (info card) -->
-        <div class="lg:col-span-5" data-hero="aside">
-          <div class="card p-7 md:p-8" data-reveal="scale" data-reveal-delay="0.4" data-tilt data-tilt-max="6" data-cursor="hover">
-            <div class="flex items-center justify-between mb-7">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-[#1A3D63] flex items-center justify-center text-white font-bold font-display text-lg">A</div>
-                <div>
-                  <p class="text-sm font-semibold text-[#0A1931]">Ángel Sánchez</p>
-                  <p class="text-xs text-[#7895AE]">@srangeldev</p>
-                </div>
-              </div>
-              <span class="text-[10px] font-mono text-[#4A7FA7] tracking-[0.14em] uppercase">/ Perfil</span>
-            </div>
-
-            <dl class="space-y-4 text-sm">
-              <div class="flex justify-between items-center pb-3 border-b border-[rgba(26,61,99,0.08)]">
-                <dt class="text-[#7895AE]">Rol</dt>
-                <dd class="text-[#0A1931] font-medium">Full Stack Developer</dd>
-              </div>
-              <div class="flex justify-between items-center pb-3 border-b border-[rgba(26,61,99,0.08)]">
-                <dt class="text-[#7895AE]">Ubicación</dt>
-                <dd class="text-[#0A1931] font-medium">España · Remoto</dd>
-              </div>
-              <div class="flex justify-between items-center pb-3 border-b border-[rgba(26,61,99,0.08)]">
-                <dt class="text-[#7895AE]">Foco</dt>
-                <dd class="text-[#0A1931] font-medium">Backend & DX</dd>
-              </div>
-              <div class="flex justify-between items-center">
-                <dt class="text-[#7895AE]">Estado</dt>
-                <dd class="text-[#2F7D4F] font-medium flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#2F7D4F]"></span> Disponible
-                </dd>
-              </div>
-            </dl>
-
-            <div class="mt-7 pt-6 border-t border-[rgba(26,61,99,0.08)]">
-              <div class="grid grid-cols-3 gap-3 text-center">
-                <div>
-                  <div class="text-2xl font-bold font-display text-[#0A1931]">10+</div>
-                  <div class="text-[10px] text-[#7895AE] uppercase tracking-[0.1em] mt-1">Proyectos</div>
-                </div>
-                <div class="border-x border-[rgba(26,61,99,0.08)]">
-                  <div class="text-2xl font-bold font-display text-[#0A1931]">3+</div>
-                  <div class="text-[10px] text-[#7895AE] uppercase tracking-[0.1em] mt-1">Años</div>
-                </div>
-                <div>
-                  <div class="text-2xl font-bold font-display text-[#0A1931]">∞</div>
-                  <div class="text-[10px] text-[#7895AE] uppercase tracking-[0.1em] mt-1">Ganas</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="md:col-span-3">
+          <Timeline items={experience} />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =========================================================
-       PROJECTS
-  ========================================================== -->
-  <section id="proyectos" class="relative py-24 md:py-32">
+  <!-- Projects -->
+  <section id="proyectos" class="py-20 md:py-28">
     <div class="container">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-        <div>
-          <div class="section-label mb-5" data-reveal="fade"><span>Trabajo seleccionado</span></div>
-          <h2 data-reveal="mask" class="text-4xl md:text-5xl lg:text-6xl font-bold font-display tracking-[-0.025em] leading-[1] text-[#0A1931]">
-            Proyectos<br />destacados.
-          </h2>
-        </div>
-        <p data-reveal="lines" data-reveal-delay="0.15" class="text-[#4A6A87] text-base md:text-lg max-w-md">
-          Una pequeña muestra de lo que he construido recientemente. Cada uno
-          resuelve un problema real con tecnologías pensadas para durar.
+      <div class="mb-12 fade-in">
+        <span class="section-label">Proyectos</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#0F172A]">
+          Trabajo seleccionado
+        </h2>
+        <p class="text-sm text-[#64748B] mt-3 max-w-lg">
+          Una muestra de lo que he construido recientemente. Cada uno resuelve
+          un problema real con tecnologías pensadas para durar.
         </p>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <div class="grid gap-4">
         {projects.map((p, i) => (
-          <div data-reveal="up" data-reveal-delay={`${i * 0.12}`}>
-            <ProjectCard {...p} />
-          </div>
+          <ProjectCard {...p} index={i} />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- =========================================================
-       ABOUT PREVIEW
-  ========================================================== -->
-  <section data-section="about" class="relative py-24 md:py-32 bg-[#EEF4FA]/60 border-y border-[rgba(26,61,99,0.06)]">
+  <!-- Skills -->
+  <section id="stack" class="py-20 md:py-28 bg-[#F8FAFC] border-y border-[#E2E8F0]">
     <div class="container">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-        <div class="lg:col-span-5" data-parallax="-0.15">
-          <div class="section-label mb-5" data-reveal="fade"><span>Sobre mí</span></div>
-          <h2 data-reveal="words" data-reveal-stagger="0.07" class="text-4xl md:text-5xl font-bold font-display tracking-[-0.025em] leading-[1.05] text-[#0A1931]">
-            Detrás del código, una forma de pensar.
-          </h2>
-        </div>
-
-        <div class="lg:col-span-7 space-y-6" data-parallax="0.08">
-          <p data-reveal="lines" class="text-lg text-[#4A6A87] leading-relaxed">
-            Llevo más de tres años construyendo software full stack. Me interesan
-            los sistemas que envejecen bien: aquellos que el equipo siguiente
-            puede leer, extender y desplegar sin miedo.
-          </p>
-
-          <blockquote data-reveal="mask" class="relative pl-6 border-l-2 border-[#1A3D63] py-2">
-            <p class="text-xl md:text-2xl font-display text-[#0A1931] leading-snug">
-              «El mejor código es el que <em class="text-[#1A3D63] not-italic">no necesitas explicar</em>.»
-            </p>
-          </blockquote>
-
-          <p data-reveal="lines" data-reveal-delay="0.1" class="text-[#4A6A87] leading-relaxed">
-            Trabajo con C#/.NET y Java en backend, Angular y TypeScript en
-            frontend, y me encargo de la infraestructura con Docker, Nginx y
-            GitHub Actions. Cuido los detalles porque la diferencia entre
-            "funciona" y "es excelente" suele estar en ellos.
-          </p>
-
-          <div class="pt-2" data-reveal="up" data-reveal-delay="0.2">
-            <a href="/sobre-mi" class="btn btn-secondary" data-cursor="hover">
-              Conoce más sobre mí
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
+      <div class="mb-12 fade-in">
+        <span class="section-label">Stack</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#0F172A]">
+          Tecnologías
+        </h2>
+        <p class="text-sm text-[#64748B] mt-3 max-w-lg">
+          Las herramientas que uso a diario, organizadas por área.
+        </p>
       </div>
+      <SkillGrid groups={skillGroups} />
     </div>
   </section>
 
-  <!-- =========================================================
-       STACK
-  ========================================================== -->
-  <section id="stack" class="relative py-24 md:py-32">
+  <!-- About -->
+  <section class="py-20 md:py-28">
     <div class="container">
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <div class="section-label mb-5 justify-center" data-reveal="fade"><span>Stack técnico</span></div>
-        <h2 data-reveal="mask" class="text-4xl md:text-5xl lg:text-6xl font-bold font-display tracking-[-0.025em] leading-[1] text-[#0A1931]">
-          Las herramientas que uso<br />
-          <span class="text-gradient">a diario.</span>
-        </h2>
-        <p data-reveal="lines" data-reveal-delay="0.15" class="text-[#4A6A87] text-base md:text-lg mt-6">
-          Tres bloques: lo que sirve los datos, lo que los muestra y lo que
-          mantiene todo en marcha.
-        </p>
-      </div>
-
-      <div class="space-y-14">
-        {
-          stackGroups.map((group, gi) => (
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-16">
+        <div class="md:col-span-2 fade-in">
+          <span class="section-label">Sobre mí</span>
+          <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#0F172A]">
+            Full Stack<br />con carácter
+          </h2>
+        </div>
+        <div class="md:col-span-3 space-y-5 fade-in">
+          <p class="text-[#475569] leading-relaxed">
+            Graduado en <strong class="text-[#0F172A]">Desarrollo de Aplicaciones Web</strong>.
+            Actualmente modelo datos en <strong class="text-[#0F172A]">BBVA</strong> y desarrollo
+            soluciones full stack. Me especializo en ecosistemas <strong class="text-[#0F172A]">.NET</strong>
+            y <strong class="text-[#0F172A]">Angular</strong>, con experiencia en arquitectura limpia,
+            microservicios y CI/CD.
+          </p>
+          <p class="text-[#475569] leading-relaxed">
+            Mi trabajo en <strong class="text-[#0F172A]">NexoPostal</strong> (TFG) y
+            <strong class="text-[#0F172A]">OriginPath</strong> me ha dado visión end-to-end del
+            producto: desde la base de datos hasta el despliegue, pasando por tests, monitoreo y
+            documentación.
+          </p>
+          <div class="flex flex-wrap gap-8 pt-2 text-sm">
             <div>
-              <div class="flex items-center gap-4 mb-7" data-reveal="up">
-                <span class="text-xs font-mono text-[#4A7FA7] tracking-[0.14em] uppercase">
-                  / 0{gi + 1}
-                </span>
-                <h3 class="text-xl md:text-2xl font-semibold font-display text-[#0A1931]">
-                  {group.title}
-                </h3>
-                <div class="flex-grow h-px bg-[rgba(26,61,99,0.08)]" />
-              </div>
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {group.items.map((tech, ti) => (
-                  <div data-reveal="up" data-reveal-delay={`${ti * 0.06}`} data-tilt data-tilt-max="10" data-cursor="hover">
-                    <TechStack name={tech.name} icon={tech.icon} level={tech.level} />
-                  </div>
-                ))}
-              </div>
+              <span class="text-[#94A3B8] text-xs block mb-0.5">Ubicación</span>
+              <span class="text-[#0F172A] font-medium">Madrid, España</span>
             </div>
-          ))
-        }
-      </div>
-
-      <!-- Marquee de tecnologías -->
-      <div class="mt-20 -mx-4">
-        <div class="marquee" data-marquee data-marquee-speed="40" data-marquee-direction="left">
-          <div class="marquee__track">
-            <span class="marquee__item">C# / .NET</span>
-            <span class="marquee__item">Java / Spring</span>
-            <span class="marquee__item">Angular</span>
-            <span class="marquee__item">TypeScript</span>
-            <span class="marquee__item">Astro</span>
-            <span class="marquee__item">Tailwind</span>
-            <span class="marquee__item">Node.js</span>
-            <span class="marquee__item">Docker</span>
-            <span class="marquee__item">GitHub Actions</span>
-            <span class="marquee__item">SQL Server</span>
-            <span class="marquee__item">PostgreSQL</span>
-            <span class="marquee__item">Redis</span>
-          </div>
-        </div>
-        <div class="marquee mt-3" data-marquee data-marquee-speed="50" data-marquee-direction="right">
-          <div class="marquee__track">
-            <span class="marquee__item">Nginx</span>
-            <span class="marquee__item">Linux</span>
-            <span class="marquee__item">Git</span>
-            <span class="marquee__item">Cloudflare</span>
-            <span class="marquee__item">REST / GraphQL</span>
-            <span class="marquee__item">SOLID</span>
-            <span class="marquee__item">DDD</span>
-            <span class="marquee__item">CI / CD</span>
-            <span class="marquee__item">Testing</span>
-            <span class="marquee__item">Clean Architecture</span>
+            <div>
+              <span class="text-[#94A3B8] text-xs block mb-0.5">Email</span>
+              <a href="mailto:srangeldev@gmail.com" class="text-[#4F46E5] font-medium hover:underline">srangeldev@gmail.com</a>
+            </div>
+            <div>
+              <span class="text-[#94A3B8] text-xs block mb-0.5">Idiomas</span>
+              <span class="text-[#0F172A] font-medium">Español · Inglés C1</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =========================================================
-       MI ENTORNO (Terminal)
-  ========================================================== -->
-  <section data-section="env" class="relative py-24 md:py-32 bg-[#EEF4FA]/60 border-y border-[rgba(26,61,99,0.06)]">
-    <div class="container">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-5" data-parallax="-0.12">
-          <div class="section-label mb-5" data-reveal="fade"><span>Mi entorno</span></div>
-          <h2 data-reveal="words" data-reveal-stagger="0.08" class="text-4xl md:text-5xl font-bold font-display tracking-[-0.025em] leading-[1.05] text-[#0A1931]">
-            Una terminal, un buen workflow.
-          </h2>
-          <p data-reveal="lines" data-reveal-delay="0.15" class="text-[#4A6A87] mt-6 leading-relaxed">
-            Vivo entre el editor y la consola. Buenas convenciones, scripts
-            sencillos y despliegues automatizados — eso me devuelve tiempo
-            para lo que importa: pensar y construir.
-          </p>
-        </div>
-
-        <div class="lg:col-span-7" data-reveal="mask" data-parallax="0.06">
-          <TerminalConsole />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       CTA
-  ========================================================== -->
-  <section data-section="cta" class="relative py-24 md:py-32">
-    <div class="container">
-      <div class="card p-10 md:p-16 text-center max-w-4xl mx-auto" data-reveal="scale" data-tilt data-tilt-max="4" data-cursor="hover">
-        <div class="section-label mb-5 justify-center" data-reveal="fade" data-reveal-delay="0.2"><span>Trabajemos juntos</span></div>
-        <h2 data-reveal="words" data-reveal-delay="0.3" data-reveal-stagger="0.07" class="text-4xl md:text-5xl lg:text-6xl font-bold font-display tracking-[-0.025em] leading-[1] text-[#0A1931]">
-          ¿Tienes una idea? Hablemos.
-        </h2>
-        <p data-reveal="lines" data-reveal-delay="0.5" class="text-[#4A6A87] text-base md:text-lg mt-6 max-w-xl mx-auto">
-          Cuéntame qué quieres construir. Respondo rápido y sin compromiso.
-        </p>
-        <div class="flex flex-wrap gap-3 mt-10 justify-center" data-reveal="up" data-reveal-delay="0.7">
-          <a href="mailto:srangeldev@gmail.com" class="btn btn-primary" data-cursor="hover">
-            Enviar email
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
-          <a href="https://linkedin.com/in/srangeldev" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-cursor="hover">
-            LinkedIn
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Contact -->
+  <ContactSection />
 </Layout>
